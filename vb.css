@@ -1,0 +1,263 @@
+* {-webkit-user-select: none;}
+
+@font-face {font-family:Jersey; src: url(sportsjersey.ttf);}
+body       {height:100%; width:100%; font-family:Jersey;}
+
+/* * {-webkit-transition-property:all; -webkit-transition-duration:2.0s;}*/
+body.abrupt * {-webkit-transition-property:all; -webkit-transition-duration:0.0s;}
+body.smooth * {-webkit-transition-property:all; -webkit-transition-duration:2.0s;}
+
+#dCourt {z-index:10; height:100%; width:100%; background-image:url('vcourt2.jpg'); background-position:center center; background-repeat:no-repeat;}
+
+/*
+[setterAtPosition="1"] #middle1 {left:475px; top:840px;}
+[setterAtPosition="1"] #setter  {left:475px; top:590px;}
+[setterAtPosition="1"] #left2   {left:325px; top:590px;}
+[setterAtPosition="1"] #middle2 {left:175px; top:590px;}
+[setterAtPosition="1"] #right   {left:175px; top:840px;}
+[setterAtPosition="1"] #left1   {left:325px; top:840px;}
+
+[positionName="startPosition"] #p1  {left:475px; top:840px;}
+[positionName="startPosition"] #p2  {left:475px; top:590px;}
+[positionName="startPosition"] #p3  {left:325px; top:590px;}
+[positionName="startPosition"] #p4  {left:175px; top:590px;}
+[positionName="startPosition"] #p5  {left:175px; top:840px;}
+[positionName="startPosition"] #p6  {left:325px; top:840px;}
+
+[positionName="service"] #p1   {left:475px; top:940px;}
+[positionName="service"] #p2   {left:400px; top:540px;}
+[positionName="service"] #p3   {left:325px; top:510px;}
+[positionName="service"] #p4   {left:250px; top:540px;}
+[positionName="service"] #p5   {left:175px; top:840px;}
+[positionName="service"] #p6   {left:325px; top:840px;}
+[positionName="service"] #ball {left:525px; top:1000px;}
+
+[positionName="transToD"] #p1   {left:475px; top:840px;}
+[positionName="transToD"] #p2   {left:400px; top:540px;}
+[positionName="transToD"] #p3   {left:325px; top:510px;}
+[positionName="transToD"] #p4   {left:250px; top:540px;}
+[positionName="transToD"] #p5   {left:175px; top:840px;}
+[positionName="transToD"] #p6   {left:325px; top:840px;}
+[positionName="transToD"] #ball {left:378px; top:255px;}
+
+[positionName="shift"] #p1   {left:475px; top:840px;}
+[positionName="shift"] #p2   {left:400px; top:540px;}
+[positionName="shift"] #p3   {left:325px; top:510px;}
+[positionName="shift"] #p4   {left:250px; top:540px;}
+[positionName="shift"] #p5   {left:175px; top:840px;}
+[positionName="shift"] #p6   {left:325px; top:840px;}
+[positionName="shift"] #ball {left:378px; top:255px;}
+
+[positionName="receive"] #p1   {left:517px; top:600px;}
+[positionName="receive"] #p2   {left:470px; top:507px;}
+[positionName="receive"] #p3   {left:345px; top:540px;}
+[positionName="receive"] #p4   {left:211px; top:766px;}
+[positionName="receive"] #p5   {left:335px; top:840px;}
+[positionName="receive"] #p6   {left:460px; top:780px;}
+[positionName="receive"] #ball {left:175px; top:0px;}
+
+
+[setterAtPosition="1rcv"] #setter   {left:517px; top:600px;}
+[setterAtPosition="1rcv"] #middle1  {left:470px; top:507px;}
+[setterAtPosition="1rcv"] #left1    {left:345px; top:540px;}
+[setterAtPosition="1rcv"] #right    {left:211px; top:766px;}
+[setterAtPosition="1rcv"] #middle2  {left:335px; top:840px;}
+[setterAtPosition="1rcv"] #left2    {left:460px; top:780px;}
+
+[setterAtPosition="2"] #middle1 {left:475px; top:840px;}
+[setterAtPosition="2"] #setter  {left:475px; top:590px;}
+[setterAtPosition="2"] #left2   {left:325px; top:590px;}
+[setterAtPosition="2"] #middle2 {left:175px; top:590px;}
+[setterAtPosition="2"] #right   {left:175px; top:840px;}
+[setterAtPosition="2"] #left1   {left:325px; top:840px;}
+
+[setterAtPosition="3"] #left1   {left:475px; top:840px;}
+[setterAtPosition="3"] #middle1 {left:475px; top:590px;}
+[setterAtPosition="3"] #setter  {left:325px; top:590px;}
+[setterAtPosition="3"] #left2   {left:175px; top:590px;}
+[setterAtPosition="3"] #middle2 {left:175px; top:840px;}
+[setterAtPosition="3"] #right   {left:325px; top:840px;}
+
+[setterAtPosition="4"] #right   {left:495px; top:840px;}
+[setterAtPosition="4"] #left1   {left:495px; top:590px;}
+[setterAtPosition="4"] #middle1 {left:345px; top:590px;}
+[setterAtPosition="4"] #setter  {left:195px; top:590px;}
+[setterAtPosition="4"] #left2   {left:195px; top:840px;}
+[setterAtPosition="4"] #middle2 {left:345px; top:840px;}
+
+[setterAtPosition="5"] #middle2 {left:495px; top:840px;}
+[setterAtPosition="5"] #right   {left:495px; top:590px;}
+[setterAtPosition="5"] #left1   {left:345px; top:590px;}
+[setterAtPosition="5"] #middle1 {left:195px; top:590px;}
+[setterAtPosition="5"] #setter  {left:195px; top:840px;}
+[setterAtPosition="5"] #left2   {left:345px; top:840px;}    
+
+[setterAtPosition="6"] #left2   {left:495px; top:840px;}
+[setterAtPosition="6"] #middle2 {left:495px; top:590px;}
+[setterAtPosition="6"] #right   {left:345px; top:590px;}
+[setterAtPosition="6"] #left1   {left:195px; top:590px;}
+[setterAtPosition="6"] #middle1 {left:195px; top:840px;}
+[setterAtPosition="6"] #setter  {left:345px; top:840px;}
+*/
+
+[context="basePosition"] .frontLeft   {}
+[context="basePosition"] .frontMiddle {}
+[context="basePosition"] .frontRight  {}
+[context="basePosition"] .backLeft    {}
+[context="basePosition"] .backMiddle  {}
+[context="basePosition"] .backRight   {}
+
+[context="serveReceive"] .frontLeft   {}
+[context="serveReceive"] .frontMiddle {}
+[context="serveReceive"] .frontRight  {}
+[context="serveReceive"] .backLeft    {}
+[context="serveReceive"] .backMiddle  {}
+[context="serveReceive"] .backRight   {}
+
+[context="blockingLeft"] .frontLeft   {}
+[context="blockingLeft"] .frontMiddle {}
+[context="blockingLeft"] .frontRight  {}
+[context="blockingLeft"] .backLeft    {}
+[context="blockingLeft"] .backMiddle  {}
+[context="blockingLeft"] .backRight   {}
+
+
+
+.floorPos {z-index:20; position:absolute; height:240px; width:160px; top:50%; left:50%; border:1px dashed green;}
+#rcv  {margin-left:-240px; margin-top:-514px; height:34px; width:480px;}
+#far1 {margin-left:-240px; margin-top:-480px;}
+#far2 {margin-left:-240px; margin-top:-240px;}
+#far3 {margin-left: -80px; margin-top:-240px;}
+#far4 {margin-left:  80px; margin-top:-240px;}
+#far5 {margin-left:  80px; margin-top:-480px;}
+#far6 {margin-left: -80px; margin-top:-480px;}
+
+#near4 {margin-left:-240px; margin-top:0px;}
+#near5 {margin-left:-240px; margin-top:240px;}
+#near6 {margin-left: -80px; margin-top:240px;}
+#near1 {margin-left:  80px; margin-top:240px;}
+#near2 {margin-left:  80px; margin-top:0px;}
+#near3 {margin-left: -80px; margin-top:0px;}
+#svc   {margin-left:-240px; margin-top:480px; height:34px; width:480px;}
+
+#ball     {z-index:50; position:absolute; height:50px; width:50px; left:0px; top:0px;  background-image:url(ball.png); background-size:100%;}
+
+.player   {z-index:30; position:absolute; height:110px; width:110px; background-size:contain; background-repeat:no-repeat;} 
+.other    {z-index:30; position:absolute; height:110px; width:110px; background-size:100%; background-repeat:no-repeat;} 
+.inMotion {z-index:35; position:absolute; height:110px; width:110px; background-size:100%; background-repeat:no-repeat;}
+
+.hidden   {opacity:0.0;}
+.unhidden {opacity:0.1;}
+
+#farScore  {position:absolute; height:75px; top:50%; left:50%; margin-left:300px; margin-top:-100px; font-size:75px;}
+#nearScore {position:absolute; height:75px; top:50%; left:50%; margin-left:300px; margin-top:25px; font-size:75px;}
+
+#btnRTB     {position:absolute; height:50px; left:20px; top:650px;}
+#btnRotate  {position:absolute; height:50px; left:20px; top:725px;}
+#btnStats   {position:absolute; height:50px; left:20px; top:800px;}
+#btnoffense {position:absolute; height:50px; left:20px; top:875px;}
+#btnDefense {position:absolute; height:50px; left:20px; top:950px;}
+
+.teenyTiny {z-index:50; position:absolute; left:200px; top:700px; height:0px;  width:0px;  border:1px solid blue;}
+.bigger    {z-index:50; position:absolute; left:200px; top:700px; height:50px; width:50px; border:1px solid blue;}
+
+#blackOut  {z-index:98; position:absolute; left:0px; top:0px; height:100%; width:100%; background-color:black; opacity:0.75; opacity:0.0;}
+#dialog    {z-index:99; position:absolute; left:0px; top:0px; height:100%; width:100%; text-align:center; font-family:oswald; font-size:100px; opacity:0.0;}
+
+[mode=""] #blackOut {display:none;}
+[mode=""] #dialog   {display:none;}
+
+/*
+[mode="diagram"] #blackOut {display:none;}
+[mode="diagram"] #dialog   {display:none;}
+
+[mode="promptForServe"] #blackOut {display:block;}
+[mode="promptForServe"] #dialog   {display:block;}
+
+[mode="keepStats"] #blackOut {display:none;}
+[mode="keepStats"] #dialog   {display:none;}
+*/
+
+#them      {padding:100px;}
+#us        {padding:100px;}
+
+/*
+[context="rotation"] [setterPosition="1"] [position="backRight"]   {margin-left:105px; margin-top:305px;}
+[context="rotation"] [setterPosition="1"] [position="frontRight"]  {margin-left:105px; margin-top:65px;}
+[context="rotation"] [setterPosition="1"] [position="frontMiddle"] {margin-left:-55px; margin-top:65px;}
+[context="rotation"] [setterPosition="1"] [position="frontLeft"]   {margin-left:-215px; margin-top:65px;}
+[context="rotation"] [setterPosition="1"] [position="backLeft"]    {margin-left:-215px; margin-top:305px;}
+[context="rotation"] [setterPosition="1"] [position="backMiddle"]  {margin-left:-55px; margin-top:305px;}
+
+[position="bench1"]  {margin-left:300px; margin-top:180px;}
+[position="bench2"]  {margin-left:300px; margin-top:250px;}
+[position="bench3"]  {margin-left:300px; margin-top:340px;}
+[position="bench4"]  {margin-left:300px; margin-top:410px;}
+*/
+
+[context="rotation"] [setterPosition="1"] [zone="1"] {left:489px;  top:825px;}
+[context="rotation"] [setterPosition="1"] [zone="2"] {left:489px;  top:585px;}
+[context="rotation"] [setterPosition="1"] [zone="3"] {left:329px;  top:585px;}
+[context="rotation"] [setterPosition="1"] [zone="4"] {left:169px;  top:585px;}
+[context="rotation"] [setterPosition="1"] [zone="5"] {left:169px;  top:825px;}
+[context="rotation"] [setterPosition="1"] [zone="6"] {left:329px;  top:825px;}
+
+
+[context="rcvServe"] [setterPosition="1"] [zone="1"] {left:529px;  top:575px;}
+[context="rcvServe"] [setterPosition="1"] [zone="2"] {left:459px;  top:530px;}
+[context="rcvServe"] [setterPosition="1"] [zone="3"] {left:229px;  top:520px;}
+[context="rcvServe"] [setterPosition="1"] [zone="4"] {left:165px;  top:810px;}
+[context="rcvServe"] [setterPosition="1"] [zone="5"] {left:319px;  top:825px;}
+[context="rcvServe"] [setterPosition="1"] [zone="6"] {left:489px;  top:825px;}
+.receiving {left:200px; top:5px;}
+
+
+[context="serving"] [setterPosition="1"] [zone="1"] {left:489px;  top:980px;}
+[context="serving"] [setterPosition="1"] [zone="2"] {left:384px;  top:550px;}
+  [context="serving"] [setterPosition="1"] [zone="3"] {left:329px;  top:510px;}
+[context="serving"] [setterPosition="1"] [zone="4"] {left:289px;  top:550px;}
+[context="serving"] [setterPosition="1"] [zone="5"] {left:199px;  top:775px;}
+[context="serving"] [setterPosition="1"] [zone="6"] {left:359px;  top:775px;}
+.serving   {left:600px; top:900px;}
+
+/*
+[context="rotation"] [setterPosition="1"] [position="backRight"]   {left:489px;  top:825px;}
+[context="rotation"] [setterPosition="1"] [position="frontRight"]  {left:489px;  top:585px;}
+[context="rotation"] [setterPosition="1"] [position="frontMiddle"] {left:329px;  top:585px;}
+[context="rotation"] [setterPosition="1"] [position="frontLeft"]   {left:169px;  top:585px;}
+[context="rotation"] [setterPosition="1"] [position="backLeft"]    {left:169px;  top:825px;}
+[context="rotation"] [setterPosition="1"] [position="backMiddle"]  {left:329px;  top:825px;}
+
+[context="rotation"] [setterPosition="2"] [position="backRight"]   {left:489px;  top:825px;}
+[context="rotation"] [setterPosition="2"] [position="frontRight"]  {left:489px;  top:585px;}
+[context="rotation"] [setterPosition="2"] [position="frontMiddle"] {left:329px;  top:585px;}
+[context="rotation"] [setterPosition="2"] [position="frontLeft"]   {left:169px;  top:585px;}
+[context="rotation"] [setterPosition="2"] [position="backLeft"]    {left:169px;  top:825px;}
+[context="rotation"] [setterPosition="2"] [position="backMiddle"]  {left:329px;  top:825px;}
+*/
+
+
+[zone="libero"]  {left:664px; top:745px;}
+[zone="bench1"]  {left:664px; top:805px;}
+[zone="bench2"]  {left:664px; top:865px;}
+[zone="bench3"]  {left:664px; top:925px;}
+
+.name      {z-index:40; text-align:center; font-size:22px; font-weight:bold; color:white;  text-shadow:-1px -1px 0 maroon, 1px -1px 0 maroon, -1px 1px 0 maroon, 1px 1px 0 maroon; padding-top:10px;}
+.num       {z-index:40; text-align:center; font-size:46px; font-weight:bold; color:maroon; text-shadow:-1px -1px 0 white,  1px -1px 0 white,  -1px 1px 0 white;  padding-top:1px;} 
+
+.player[zone="libero"]     {height:60px; width:60px;}
+[zone="libero"] .name      {zoom:50%;}
+[zone="libero"] .num       {zoom:50%;} 
+
+
+.player[zone="bench1"]     {height:60px; width:60px;}
+[zone="bench1"] .name      {zoom:50%;}
+[zone="bench1"] .num       {zoom:50%;} 
+
+.player[zone="bench2"]     {height:60px; width:60px;}
+[zone="bench2"] .name      {zoom:50%;}
+[zone="bench2"] .num       {zoom:50%;} 
+
+.player[zone="bench3"]     {height:60px; width:60px;}
+[zone="bench3"] .name      {zoom:50%;}
+[zone="bench3"] .num       {zoom:50%;} 

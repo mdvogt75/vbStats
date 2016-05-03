@@ -1,0 +1,292 @@
+<!DOCTYPE html5>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <meta name="viewport" content="height=1024, width=768, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link rel="apple-touch-icon" href="/custom_icon.png">
+    <link rel="apple-touch-startup-image" href="/startup.png">
+    
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" type="text/css" href="vb.css">
+    
+    <link rel="manifest" href="vb.manifest">
+    
+    <script type="text/javascript">
+      var ballObject;
+      var objBeingDragged = null;
+      var lastX = 0;
+      var lastY = 0;
+      var mnSelect;
+      
+      /*
+      var setter, middle1, left1, right, middle2, left2;
+      //var courtPosition = new Array();
+      var backRight, frontRight, frontMiddle, frontLeft, backLeft, backMiddle;
+      
+      var currZone, currRow, currSide;
+      
+      var iconSize = 110;
+      var deltaX, deltaY;
+      
+      var overlapLineLeft, overlapLineRight, overlapLineFront, overlapLineBack;
+      
+      var context;
+      */
+    </script>
+    <script language="javascript" src="ball.js"></script>
+    <script language="javascript" src="drag.js"></script>
+    <script language="javascript" src="player.js"></script>
+    <script type="text/javascript">
+      /************************************************************************************************************************
+      * 
+      ************************************************************************************************************************/
+      function Team(ipName) {
+          this.name = ipName;
+          this.playerList = new Array();
+          this.courtPosition = new Array();
+          this.liberoIsInFor = null;
+          this.setter  = null;
+          this.middle1 = null;
+          this.left1   = null;
+          this.right   = null;
+          this.middle2 = null;
+          this.left2   = null;
+          this.libero  = null;
+          this.bench1  = null;
+          this.bench2  = null;
+          this.bench3  = null;
+          //this.bench4  = null;
+          this.numPoints = 0;
+          this.side = "";
+      }
+      
+      /************************************************************************************************************************
+      * FUNCTION TO PLACE PLAYER IMAGES AT THE CORRECT BASE COURT POSITION
+      ************************************************************************************************************************/
+      Team.prototype.assumePositions = function() {
+          for(var i in this.courtPosition) {
+              this.courtPosition[i].elem.setAttribute("zone", (i * 1) + 1);
+          }
+          
+          if(this.middle1.backRow()) {
+              this.liberoIsInFor = this.middle1;
+              this.middle1.elem.setAttribute("zone","libero");
+              this.libero.elem.setAttribute("zone",(this.courtPosition.indexOf(this.middle1) * 1) + 1);
+          } else {
+              this.liberoIsInFor = this.middle2;
+              this.middle2.elem.setAttribute("zone","libero");
+              this.libero.elem.setAttribute("zone",(this.courtPosition.indexOf(this.middle2) * 1) + 1);
+          }
+      } 
+      
+      /************************************************************************************************************************
+      * FUNCTION TO PLACE PLAYER IMAGES 
+      ************************************************************************************************************************/
+      Team.prototype.offense = function() {
+          document.querySelector("#nearTeam").setAttribute("context", "serving");
+          ballObject.elem.className = "serving";
+      } 
+      
+      /************************************************************************************************************************
+      * FUNCTION TO PLACE PLAYER IMAGES 
+      ************************************************************************************************************************/
+      Team.prototype.defense = function() {
+          document.querySelector("#nearTeam").setAttribute("context", "rcvServe");
+          ballObject.elem.className = "receiving";
+      } 
+      
+      /************************************************************************************************************************
+      * FUNCTION TO RETURN PLAYER IMAGES BACK TO THEIR STARTING BASE POSITIONs
+      ************************************************************************************************************************/
+      Team.prototype.checkOverlap = function() {
+          /*
+          var backRight   = this.courtPosition[0]; if(this.liberoIsInFor == backRight) {backRight = this.libero;}
+          var frontRight  = this.courtPosition[1]; if(this.liberoIsInFor == frontRight) {frontRight = this.libero;}
+          var frontMiddle = this.courtPosition[2]; if(this.liberoIsInFor == frontMiddle) {frontMiddle = this.libero;}
+          var frontLeft   = this.courtPosition[3]; if(this.liberoIsInFor == frontLeft) {frontLeft = this.libero;}
+          var backLeft    = this.courtPosition[4]; if(this.liberoIsInFor == backLeft) {backLeft = this.libero;}
+          var backMiddle  = this.courtPosition[5]; if(this.liberoIsInFor == backMiddle) {backMiddle = this.libero;}
+          */
+          var backRight   = (this.liberoIsInFor == this.courtPosition[0] ? this.libero : this.courtPosition[0]);
+          var frontRight  = (this.liberoIsInFor == this.courtPosition[1] ? this.libero : this.courtPosition[1]);
+          var frontMiddle = (this.liberoIsInFor == this.courtPosition[2] ? this.libero : this.courtPosition[2]);
+          var frontLeft   = (this.liberoIsInFor == this.courtPosition[3] ? this.libero : this.courtPosition[3]);
+          var backLeft    = (this.liberoIsInFor == this.courtPosition[4] ? this.libero : this.courtPosition[4]);
+          var backMiddle  = (this.liberoIsInFor == this.courtPosition[5] ? this.libero : this.courtPosition[5]);
+          /*
+          for(var i in this.courtPosition) {
+              if(this.liberoIsInFor == this.courtPosition[i]) {
+                  frontRight = this.libero;
+          }
+          */
+            
+          //console.log("CHECKING OVERLAP");
+          
+          // CHECK BACK ROW AGAINST FRONT ROW
+          if(backRight.foremostBodyPart() < frontRight.foremostBodyPart()) {
+              backRight.showFrontBackOverlap(frontRight);
+          } else if(backMiddle.foremostBodyPart() < frontMiddle.foremostBodyPart()) {
+              backMiddle.showFrontBackOverlap(frontMiddle);
+          } else if(backLeft.foremostBodyPart() < frontLeft.foremostBodyPart()) {
+                  backLeft.showFrontBackOverlap(frontLeft);
+          } else {
+              document.getElementById("frontBackOverlap").className = "hidden";
+          }
+          
+          // CHECK ALL LEFT RIGHT SEAMS
+          if(backLeft.leftmostBodyPart() > backMiddle.leftmostBodyPart()) {
+              backLeft.showLeftRightOverlap(backMiddle);
+          } else if(backMiddle.leftmostBodyPart() > backRight.leftmostBodyPart()) {
+              backMiddle.showLeftRightOverlap(backRight);
+          } else if(frontLeft.leftmostBodyPart() > frontMiddle.leftmostBodyPart()) {
+              frontLeft.showLeftRightOverlap(frontMiddle);
+          } else if(frontMiddle.leftmostBodyPart() > frontRight.leftmostBodyPart()) {
+              frontMiddle.showLeftRightOverlap(frontRight);
+          } else {
+              document.getElementById("leftRightOverlap").className = "hidden";
+          }
+      }
+      
+      /************************************************************************************************************************
+      * FUNCTION TO SHIFT PLAYER IMAGES ON SCREEN ACCORDING TO PLAYERS STARTING FLOOR POSITION
+      ************************************************************************************************************************/
+      Team.prototype.rotate = function() {
+          console.log("ROTATING");
+          
+          this.returnToBase();
+          
+          this.courtPosition.push(this.courtPosition.shift());
+
+          
+          /*
+          if(this.courtPosition[0].playsBackRow == false) {
+              console.log('libero going in for ' + this.courtPosition[0].last);
+              
+              this.liberoIsInFor = this.courtPosition.shift();
+              //this.liberoIsInFor.elem.setAttribute("zone", "libero"); 
+              this.courtPosition.unshift(this.libero);
+              //this.courtPosition[i].elem.setAttribute("zone", "1");
+          }
+          
+          this.assumePositions();
+          */
+          //this.assumePositions();
+          this.assumePositions();
+          
+      }
+      
+      
+      /************************************************************************************************************************
+      * FUNCTION TO SHIFT PLAYER IMAGES ON SCREEN ACCORDING TO PLAYERS STARTING FLOOR POSITION
+      ************************************************************************************************************************/
+      Team.prototype.returnToBase = function() {
+          console.log("RETURN TO BASE");
+          
+          document.querySelector("#nearTeam").setAttribute("context", "rotation");
+          
+          for(var i in this.courtPosition) {
+              this.courtPosition[i].elem.style.marginTop  = "0px";
+              this.courtPosition[i].elem.style.marginLeft = "0px";
+          }
+      }
+
+      
+      /************************************************************************************************************************
+      * FUNCTION TO INSTANTIATE OBJECTS AND DEFINE EVENT LISTENERS
+      ************************************************************************************************************************/
+      function init() {
+          ballObject = new Ball();
+          
+          mnSelect = new Team("SELECT");
+          mnSelect.side = "near"; 
+          
+          //////////////////////////////////////////////////
+          // Create our players
+          //////////////////////////////////////////////////
+          mnSelect.bench1  = new Player(mnSelect, "LIESEL",  "HAUGEN",    1, "onTheCourt", true);
+          mnSelect.bench2 = new Player(mnSelect, "KATY",    "RIVIERE",   3, "onTheCourt", true);
+          mnSelect.setter  = new Player(mnSelect, "HALLY",   "HOLKER",    4, "onTheBench", false);
+          mnSelect.middle2 = new Player(mnSelect, "CARA",    "CYR",       5, "onTheCourt", false);
+          mnSelect.libero  = new Player(mnSelect, "MIKAYLA", "REED",     15, "onTheBench", true);
+          mnSelect.libero.elem.style.backgroundImage="url(whiteTee.png)";
+          
+          mnSelect.middle1  = new Player(mnSelect, "SIGNA",   "O'KEEFE",  18, "onTheBench", false);
+          mnSelect.right   = new Player(mnSelect, "KAITLYN", "VOGT",     19, "onTheCourt", true);
+          mnSelect.bench3  = new Player(mnSelect, "KYLIE",   "STREMMEL", 21, "onTheBench", false);
+          mnSelect.left1   = new Player(mnSelect, "MORGAN",  "UKESTAD",  23, "onTheCourt", true);
+          mnSelect.left2   = new Player(mnSelect, "JORDAN",  "KIRPACH",  25, "onTheCourt", true);
+          
+          // Choose lineup
+          mnSelect.courtPosition.push(mnSelect.setter);
+          mnSelect.courtPosition.push(mnSelect.left1);
+          mnSelect.courtPosition.push(mnSelect.middle1);
+          mnSelect.courtPosition.push(mnSelect.right);
+          mnSelect.courtPosition.push(mnSelect.left2);
+          mnSelect.courtPosition.push(mnSelect.middle2);
+          
+          mnSelect.bench1.elem.setAttribute("zone", "bench1");
+          mnSelect.bench2.elem.setAttribute("zone", "bench2");
+          mnSelect.bench3.elem.setAttribute("zone", "bench3");
+          mnSelect.assumePositions();
+          
+          // Swap libero in
+          mnSelect.assumePositions();
+          
+          defineDragListeners();
+
+      }
+      </script>
+  </head>  
+  
+  <body id="body" class="smooth" mode="" onload="init();" style="text-align:center; margin:0px; color:white;" >
+    <div id="dCourt" zpositionName="startPosition">
+      <div id="ball" class="ball" style="margin-top:0px; margin-left:0px;"></div>
+      
+      <div id="nearTeam" context="rotation">
+        <div id="onTheCourt" setterPosition="1"></div>
+        <div id="onTheBench"></div>
+      </div>
+      
+      <div id="leftRightOverlap" class="hidden" style="position:absolute; height:1024px; top:0px; left:0px; margin-top:0px; margin-left:0px; background-color:red;"></div>
+      <div id="frontBackOverlap" class="hidden" style="position:absolute; width:768px;   top:0px; left:0px; margin-top:0px; margin-left:0px; background-color:red;"></div>
+      
+      <div id="rcv"  row="back"  side="far" class="floorPos"></div>
+      <div id="far1" row="back"  side="far" class="floorPos"></div>
+      <div id="far2" row="front" side="far" class="floorPos"></div>
+      <div id="far3" row="front" side="far" class="floorPos"></div>
+      <div id="far4" row="front" side="far" class="floorPos"></div>
+      <div id="far5" row="back"  side="far" class="floorPos"></div>
+      <div id="far6" row="back"  side="far" class="floorPos"></div>
+      
+      <div id="near1" row="back"  side="near" class="floorPos"></div>
+      <div id="near2" row="front" side="near" class="floorPos"></div>
+      <div id="near3" row="front" side="near" class="floorPos"></div>
+      <div id="near4" row="front" side="near" class="floorPos"></div>
+      <div id="near5" row="back"  side="near" class="floorPos"></div>
+      <div id="near6" row="back"  side="near" class="floorPos"></div>
+      <div id="svc"   row="back"  side="near" class="floorPos"></div>
+        
+    </div>
+    
+    <div id="farScore">00</div>
+    <div id="nearScore">00</div>
+    
+    <img id="btnRTB"     src="BaseButton.png"   /> 
+    <img id="btnRotate"  src="RotateButton.png" />
+    <img id="btnStats"   src="StatsButton.png" />
+    <img id="btnOffense" src="OffenseButton.png" />
+    <img id="btnDefense" src="DefenseButton.png" />
+    
+    <img id="btnPass"   class="teenyTiny" src="pass.png" />
+    <img id="btnAttack" class="teenyTiny" src="attack.png" />
+    <img id="btnBlock"  class="teenyTiny" src="block.png" />
+
+    <div id="blackOut"></div>
+    <div id="dialog"><div id="them">THEM</div>WHICH TEAM SERVES FIRST?<div id="us">US</div></div>
+        
+    <!--<div id="dDescription">TEST</div>-->     
+  </body>  
+</html>
